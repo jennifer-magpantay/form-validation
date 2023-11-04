@@ -9,13 +9,14 @@ export default function App() {
     password: "",
     confirmPassword: "",
   });
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [messages, setMessages] = useState({
     form: false,
     email: false,
     password: false,
     confirmPassword: false,
   });
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const formRef = useRef(null);
   const formButtonRef = useRef(null);
 
@@ -115,6 +116,7 @@ export default function App() {
     // is everything is ok, then...
     if (areAllInputsValid) {
       console.log(formData);
+      setIsFormSubmitted(true);
       // reset button
       setIsButtonEnabled(false);
       // reset messages
@@ -156,93 +158,103 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Register new user</h1>
-      <form
-        className="form"
-        onChange={handleFormOnChange}
-        onSubmit={(e) => handleFormOnSubmit(e)}
-        ref={formRef}
-      >
-        {messages.form && (
-          <span className="error--big">All fields must be filled in</span>
-        )}
-        <div className="container--row">
-          <div className="form--row">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              placeholder="Ex.: Andre"
-              onChange={(e) => handleFormData(e)}
-            />
-          </div>
-          <div className="form--row">
-            <label htmlFor="surname">Surname</label>
-            <input
-              type="text"
-              id="surname"
-              name="surname"
-              value={formData.surname}
-              placeholder="Ex.: Maia"
-              onChange={(e) => handleFormData(e)}
-            />
-          </div>
-        </div>
-        <div className="form--row">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={formData.email}
-            placeholder="Ex.: your@email.com"
-            onChange={(e) => handleFormData(e)}
-            onInput={(e) => handleInputMessages(e)}
-          />
-          {messages.email && <span className="error">Add a valid email</span>}
-        </div>
-        <div className="form--row">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            placeholder="Password"
-            onChange={(e) => handleFormData(e)}
-            onInput={(e) => handleInputMessages(e)}
-          />
-          {messages.password && (
-            <span className="hint">
-              Password must be at least 06 characters long
-            </span>
-          )}
-        </div>
-        <div className="form--row">
-          <label htmlFor="confirmPassword">Confirm password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            placeholder="Confirm password"
-            onChange={(e) => handleFormData(e)}
-            onInput={(e) => handleInputMessages(e)}
-          />
-          {messages.confirmPassword && (
-            <span className="error">Password does not match</span>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={!isButtonEnabled ? true : false}
-          ref={formButtonRef}
+      <h1>
+        {isFormSubmitted ? "Thanks for joining us!" : "Register new user"}
+      </h1>
+      {isFormSubmitted ? (
+        <>
+          <p className="greetings">You are officially part of our community.</p>
+          <p className="greetings">Let's get started!</p>
+        </>
+      ) : (
+        <form
+          className="form"
+          onChange={handleFormOnChange}
+          onSubmit={(e) => handleFormOnSubmit(e)}
+          ref={formRef}
         >
-          Register
-        </button>
-      </form>
+          {messages.form && (
+            <span className="error--big">All fields must be filled in</span>
+          )}
+          <div className="container--row">
+            <div className="form--row">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                placeholder="Ex.: Andre"
+                onChange={(e) => handleFormData(e)}
+              />
+            </div>
+            <div className="form--row">
+              <label htmlFor="surname">Surname</label>
+              <input
+                type="text"
+                id="surname"
+                name="surname"
+                value={formData.surname}
+                placeholder="Ex.: Maia"
+                onChange={(e) => handleFormData(e)}
+              />
+            </div>
+          </div>
+          <div className="form--row">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={formData.email}
+              placeholder="Ex.: your@email.com"
+              onChange={(e) => handleFormData(e)}
+              onInput={(e) => handleInputMessages(e)}
+            />
+            {messages.email && <span className="error">Add a valid email</span>}
+          </div>
+          <div className="form--row">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              placeholder="Password"
+              onChange={(e) => handleFormData(e)}
+              onInput={(e) => handleInputMessages(e)}
+            />
+            {messages.password && (
+              <span className="hint">
+                Password must be at least 06 characters long
+              </span>
+            )}
+          </div>
+          <div className="form--row">
+            <label htmlFor="confirmPassword">Confirm password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              placeholder="Confirm password"
+              onChange={(e) => handleFormData(e)}
+              onInput={(e) => handleInputMessages(e)}
+            />
+            {messages.confirmPassword && (
+              <span className="error">Password does not match</span>
+            )}
+          </div>
+          <button
+            type="submit"
+            disabled={!isButtonEnabled ? true : false}
+            ref={formButtonRef}
+          >
+            Register
+          </button>
+        </form>
+      )}
+
       <footer>Developed by Jennifer Magpantay</footer>
     </div>
   );
