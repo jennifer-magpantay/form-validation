@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 
 import "./App.css";
+import Greetings from "./components/Greetings";
+import { Form } from "./components/Form";
+import Input from "./components/Input";
 export default function App() {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +21,6 @@ export default function App() {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const formRef = useRef(null);
-  const formButtonRef = useRef(null);
 
   const validateEmail = (email) => {
     // Regular expression for a valid email address
@@ -162,13 +164,10 @@ export default function App() {
         {isFormSubmitted ? "Thanks for joining us!" : "Register new user"}
       </h1>
       {isFormSubmitted ? (
-        <>
-          <p className="greetings">You are officially part of our community.</p>
-          <p className="greetings">Let's get started!</p>
-        </>
+        <Greetings />
       ) : (
-        <form
-          className="form"
+        <Form
+          isButtonEnabled={isButtonEnabled}
           onChange={handleFormOnChange}
           onSubmit={(e) => handleFormOnSubmit(e)}
           ref={formRef}
@@ -177,82 +176,63 @@ export default function App() {
             <span className="error--big">All fields must be filled in</span>
           )}
           <div className="container--row">
-            <div className="form--row">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                placeholder="Ex.: Andre"
-                onChange={(e) => handleFormData(e)}
-              />
-            </div>
-            <div className="form--row">
-              <label htmlFor="surname">Surname</label>
-              <input
-                type="text"
-                id="surname"
-                name="surname"
-                value={formData.surname}
-                placeholder="Ex.: Maia"
-                onChange={(e) => handleFormData(e)}
-              />
-            </div>
-          </div>
-          <div className="form--row">
-            <label htmlFor="email">Email</label>
-            <input
+            <Input
+              label="Name"
               type="text"
-              id="email"
-              name="email"
-              value={formData.email}
-              placeholder="Ex.: your@email.com"
+              id="name"
+              value={formData.name}
+              placeholder="Ex.: Andre"
               onChange={(e) => handleFormData(e)}
-              onInput={(e) => handleInputMessages(e)}
             />
-            {messages.email && <span className="error">Add a valid email</span>}
-          </div>
-          <div className="form--row">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              placeholder="Password"
+            <Input
+              label="Surname"
+              type="text"
+              id="surname"
+              value={formData.surname}
+              placeholder="Ex.: Maia"
               onChange={(e) => handleFormData(e)}
-              onInput={(e) => handleInputMessages(e)}
             />
-            {messages.password && (
-              <span className="hint">
-                Password must be at least 06 characters long
-              </span>
-            )}
           </div>
-          <div className="form--row">
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              placeholder="Confirm password"
-              onChange={(e) => handleFormData(e)}
-              onInput={(e) => handleInputMessages(e)}
-            />
-            {messages.confirmPassword && (
-              <span className="error">Password does not match</span>
-            )}
-          </div>
-          <button
-            type="submit"
-            disabled={!isButtonEnabled ? true : false}
-            ref={formButtonRef}
-          >
-            Register
-          </button>
-        </form>
+
+          <Input
+            label="Email"
+            type="text"
+            id="email"
+            value={formData.email}
+            placeholder="Ex.: your@email.com"
+            onChange={(e) => handleFormData(e)}
+            onInput={(e) => handleInputMessages(e)}
+          />
+          {messages.email && <span className="error">Add a valid email</span>}
+
+          <Input
+            label="Password"
+            type="password"
+            id="password"
+            value={formData.password}
+            placeholder="Password"
+            onChange={(e) => handleFormData(e)}
+            onInput={(e) => handleInputMessages(e)}
+          />
+          {messages.password && (
+            <span className="hint">
+              Password must be at least 06 characters long
+            </span>
+          )}
+
+          <Input
+            label="Confirm password"
+            type="password"
+            id="confirmPassword"
+            value={formData.confirmPassword}
+            placeholder="Confirm password"
+            onChange={(e) => handleFormData(e)}
+            onInput={(e) => handleInputMessages(e)}
+          />
+          {messages.confirmPassword && (
+            <span className="error">Password does not match</span>
+          )}
+        </Form>
       )}
 
       <footer>Developed by Jennifer Magpantay</footer>

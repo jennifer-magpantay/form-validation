@@ -31,9 +31,10 @@
 }
 
 .App > .greetings {
+  margin-bottom: 8px;
+  color: darkgray;
   font-weight: 600;
   font-size: 24px;
-  margin-bottom: 8px;
 }
 
 .form {
@@ -49,13 +50,12 @@
 
 .form--row {
   flex: auto;
-  margin-bottom: 16px;
 }
 
 label {
   width: 100%;
   display: block;
-  margin-bottom: 8px;
+  margin: 12px 0 8px;
   text-align: left;
 }
 
@@ -63,13 +63,19 @@ input {
   width: 100%;
   height: 44px;
   display: block;
-  padding: 4px;
+  padding: 4px 6px;
+  border: 01px solid lightgrey;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline-color: darkgray;
 }
 
 .form > button {
   width: fit-content;
   padding: 16px 32px;
-  margin: 0 auto;
+  margin: 16px auto;
   background-color: red;
   border: 0;
   color: white;
