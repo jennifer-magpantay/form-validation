@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.container--row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.App > h1 {
+  margin-top: auto;
+}
+
+.form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 16px;
+  margin: 0 auto;
+}
+
+.form--row {
+  flex: auto;
+  margin-bottom: 16px;
+}
+
+label {
+  width: 100%;
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  height: 44px;
+  display: block;
+  padding: 4px;
+}
+
+.form > button {
+  width: fit-content;
+  padding: 16px 32px;
+  margin: 0 auto;
+  background-color: red;
+  border: 0;
+  color: white;
+  font-weight: bold;
+  outline: 0;
+  text-transform: uppercase;
+}
+
+.form > button:hover {
+  cursor: pointer;
+}
+
+.form > button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+footer {
+  width: 100%;
+  padding: 16px;
+  margin-top: auto;
+  background-color: black;
+  color: white;
+}
+
+.hint {
+  width: 100%;
+  display: block;
+  margin-top: 4px;
+  color: gray;
+  font-size: 14px;
+  text-align: left;
+}
+
+.error {
+  width: 100%;
+  display: block;
+  margin-top: 4px;
+  color: red;
+  font-size: 14px;
+  text-align: left;
+}
+
+.error--big {
+  width: 100%;
+  display: block;
+  margin-bottom: 16px;
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+}
